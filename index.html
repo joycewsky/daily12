@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>狗狗年齡換算器</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1651087449737-7c784fb0c1e8?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(3px);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px; /* ⭐ 加大手機邊界 */
+    box-sizing: border-box;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.92);
+    width: 100%;
+    max-width: 460px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease;
+    box-sizing: border-box; /* ⭐ 避免 padding 撐爆容器 */
+  }
+  /* 🟡 正圓形狗狗圖片 */
+    .dog-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        display: block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+  h2 {
+    text-align: center;
+    font-size: clamp(20px, 5vw, 26px); /* ⭐ RWD 字體大小 */
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .dog-img {
+    width: 150px;        /* 固定寬度 */
+    height: 150px;       /* 固定高度成正方形 */
+    border-radius: 50%;  /* 圓形 */
+    object-fit: cover;   /* 圖片裁切填滿 */
+    margin: 0 auto 20px;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    animation: pop 0.8s ease;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    margin-top: 5px;
+    box-sizing: border-box; /* ⭐避免 input 撐破 */
+  }
+
+  /* 漸層動畫按鈕 */
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffcc33, #ff9900);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(255,153,0,0.5);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .result-box {
+    margin-top: 20px;
+    padding: 18px;
+    background: #fff7da;
+    border-radius: 14px;
+    border-left: 6px solid #ffa800;
+    display: none;
+    font-size: 16px;
+    animation: popIn 0.4s ease-out;
+    box-sizing: border-box;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  .paw {
+    font-size: 22px;
+    margin-right: 6px;
+  }
+
+  /* ⭐⭐⭐ 完整 RWD 改善區段 ⭐⭐⭐ */
+  @media (max-width: 480px) {
+    body {
+      padding: 30px 10px;
+    }
+    .container {
+      padding: 18px;
+      border-radius: 18px;
+    }
+    input, button {
+      font-size: 15px;
+      padding: 12px;
+    }
+    @media (max-width: 480px) {
+  .dog-img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 350px) {
+  .dog-img {
+    width: 95px;
+    height: 95px;
+  }
+}
+  }
+
+  /* 超小裝置（舊安卓機 320px） */
+  @media (max-width: 350px) {
+    h2 { font-size: 18px; }
+    button { font-size: 16px; }
+    .dog-img { width: 80px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- 🐶 正圓形黃金獵犬插圖 -->
+    <img src="https://images.unsplash.com/photo-1558788353-f76d92427f16?q=80&w=2070&auto=format&fit=crop"
+         class="dog-img" alt="Golden Retriever">
+
+
+  <h2>🐶 狗狗年齡換算器</h2>
+
+  <label>狗狗的名字：</label>
+  <input type="text" id="dogName" placeholder="例如：小金、Lucky">
+
+  <label>生日：</label>
+  <input type="date" id="dogBirth">
+
+  <button onclick="calculateAge()">🐾 計算年齡</button>
+
+  <div id="result" class="result-box"></div>
+</div>
+
+<script>
+  // 載入 localStorage
+  window.onload = function () {
+    const saved = JSON.parse(localStorage.getItem("dogAgeData"));
+    if (saved) {
+      document.getElementById("dogName").value = saved.name;
+      document.getElementById("dogBirth").value = saved.birth;
+      showResult(saved);
+    }
+  };
+
+  function calculateAge() {
+    const name = document.getElementById("dogName").value.trim();
+    const birth = document.getElementById("dogBirth").value;
+    if (!name || !birth) return;
+
+    const today = new Date();
+    const birthDate = new Date(birth);
+
+    let dogYears = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      dogYears--;
+    }
+
+    //「早安毛健康」換算邏輯
+    let humanYears = 0;
+    if (dogYears === 1) humanYears = 15;
+    else if (dogYears === 2) humanYears = 24;
+    else if (dogYears >= 3) humanYears = 24 + (dogYears - 2) * 4;
+
+    const resultData = { name, birth, dogYears, humanYears };
+    localStorage.setItem("dogAgeData", JSON.stringify(resultData));
+    showResult(resultData);
+  }
+
+  function showResult(data) {
+    const box = document.getElementById("result");
+    box.style.display = "block";
+    box.innerHTML = `
+      <span class="paw">🐾</span><strong>${data.name}</strong><br><br>
+      狗狗歲數：<strong>${data.dogYears} 歲</strong><br>
+      換算成人類年齡：約 <strong>${data.humanYears} 歲</strong><br>
+    `;
+  }
+</script>
+
+</body>
+</html>
